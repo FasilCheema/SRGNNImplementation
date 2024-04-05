@@ -44,7 +44,7 @@ def main(args, new_classes):
     
         min_max_scaler = preprocessing.MinMaxScaler()
         features = F.normalize(features, p=1,dim=1)
-        feat_smooth_matrix = calc_feat_smooth(adj, feat)
+        feat_smooth_matrix = calc_feat_smooth(adj, features)
         
         nx_g = nx.Graph(adj+ sp.eye(adj.shape[0]))
         
