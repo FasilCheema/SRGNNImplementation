@@ -33,9 +33,6 @@ def main(args, new_classes):
     verbose = args.verbose
     device = torch.device("cpu")
     unk = False
-    cnt_wait = 0
-    best = 1e9
-    best_t = 0
 
     if args.dataset in ['cora', 'citeseer', 'pubmed']:
         adj, features, one_hot_labels, ori_idx_train, idx_val, idx_test = utils.data_loader(args.dataset)
@@ -52,7 +49,6 @@ def main(args, new_classes):
     else:
         raise ValueError("wrong dataset name")
     
-    nb_nodes = features.shape[0]
     ft_size = features.shape[1]
     
     labels = torch.LongTensor(labels)
