@@ -84,7 +84,8 @@ def main(args, new_classes):
     ppr_dist = train_dump['ppr_dist']
     avg_mmd_dist = []
     training_seeds_run = pickle.load(open('data/localized_seeds_{}.p'.format(args.dataset), 'rb'))
-    
+
+    #This loop generates biased data repeatedly for training 
     for curr_iter in range(args.n_repeats):
 
         #Generate biased training data
@@ -190,7 +191,9 @@ def main(args, new_classes):
     
             logits = model(features)
             loss = cross_ent_x(logits[idx_train], labels[idx_train])
-                
+            
+            #If we employ SR (Shift Robustness) we use the cmd and mmd terms in the loss
+            #   these modified loss functions use the iid and idx generated data. 
             if args.arch == 0:
                 loss = loss.mean()
                 total_loss = loss
@@ -305,6 +308,7 @@ if __name__ == '__main__':
     elif args.dataset == 'dblp':
         num_class = 5
 
+    #Decides which architecture to use depending on if we want to add the Shift Robustness
     if args.SR and args.gnn == 'ppnp':
         args.arch = 3
     elif args.SR:
