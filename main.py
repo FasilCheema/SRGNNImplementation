@@ -74,8 +74,12 @@ def main(args, new_classes):
     feature_smoothness = []
     embedding_smoothness = []
     avg_dist, max_dist = [], []
+
+    if not(args.pretrain == 'none'):
+        train_dump = pickle.load(open(args.pretrain))
+    else:
+        train_dump = pickle.load(open('intermediate/{}_dump.p'.format(args.dataset), 'rb'))
     
-    train_dump = pickle.load(open('intermediate/{}_dump.p'.format(args.dataset), 'rb'))
     ppr_vector = train_dump['ppr_vector']
     ppr_dist = train_dump['ppr_dist']
     avg_mmd_dist = []
@@ -99,7 +103,8 @@ def main(args, new_classes):
                 idx_test = list(all_idx)
             
             iid_train, _, _, _, _, _ = utils.createDBLPTraining(one_hot_labels, ori_idx_train, idx_val, idx_test, max_train = max_train)
-            
+
+            #uses personalized page rank to generate the biased data 
             if args.arch >= 3:
                 kmm_weight, MMD_dist = KMM(ppr_vector[idx_train, :], ppr_vector[iid_train, :], label_balance_constraints)
 
@@ -280,6 +285,7 @@ if __name__ == '__main__':
     parser.add_argument('--dataset',type=str, default='cora')
     parser.add_argument('--new-classes', type=list, default=[])
     parser.add_argument('--sc', type=float, default=0.0, help='GCN self connection')
+    parser.add_argument('--pretrain',type=str, default='none')
     
     args = parser.parse_args()
     

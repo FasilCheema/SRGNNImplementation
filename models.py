@@ -15,8 +15,8 @@ import torch
 import numpy as np
 import torch.nn as nn
 import scipy.sparse as sp
-from main import calc_A_hat
 import torch.nn.functional as F
+from matrixtools import calc_A_hat
 from torch.autograd import Function
 from dgl.nn.pytorch.conv import SAGEConv,GraphConv,GATConv, SGConv
 
