@@ -149,7 +149,7 @@ class GraphSAGE(nn.Module):
         
         self.h = h
         
-        feed_forward = self.layers[-1](h)
+        feed_forward = self.layers[-1](self.g,h)
         
         return feed_forward
         
@@ -211,8 +211,9 @@ class GCN(nn.Module):
             h = self.dropout(h)
         
         self.h = h
-        
-        return self.layers[-1](self.g, h)
+        feed_forward =  self.layers[-1](self.g, h)
+
+        return feed_forward 
 
     def output(self, features):
         h = features
