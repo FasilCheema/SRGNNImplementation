@@ -135,7 +135,7 @@ def main(args, new_classes):
                     args.aggregator_type
                     )
         elif args.gnn == 'gat':
-            num_heads = 4
+            num_heads = args.nheads
             model = GAT(g,
                     ft_size,
                     args.n_hidden,
@@ -271,8 +271,6 @@ if __name__ == '__main__':
                         help="number of training epochs")
     parser.add_argument("--n-hidden", type=int, default=128,
                         help="number of hidden gcn units")
-    parser.add_argument("--n-out", type=int, default=64,
-                        help="number of hidden gcn units")
     parser.add_argument("--n-layers", type=int, default=1,
                         help="number of hidden gcn layers")
     parser.add_argument("--weight-decay", type=float, default=0,
@@ -285,6 +283,7 @@ if __name__ == '__main__':
     parser.add_argument('--new-classes', type=list, default=[])
     parser.add_argument('--sc', type=float, default=0.0, help='GCN self connection')
     parser.add_argument('--pretrain',type=str, default='none')
+    parser.add_argument('--nheads',type=int, default=4)
     
     args = parser.parse_args()
     
