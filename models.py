@@ -72,7 +72,7 @@ class MixedDropout(nn.Module):
         else:
             return self.dense_dropout(input)
 
-#Personalized Page Rank (Experimental, I was unfortunately not able to verify if this works on CUDA)
+#Personalized Page Rank
 class PPRPowerIteration(nn.Module):
     
     def __init__(self, in_feats, n_hidden, n_classes, adj_matrix: sp.spmatrix, alpha: float, niter: int, drop_prob: float = None):
