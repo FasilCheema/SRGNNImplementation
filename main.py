@@ -276,7 +276,7 @@ if __name__ == '__main__':
     parser.add_argument("--weight-decay", type=float, default=0,
                         help="Weight for L2 loss")
     parser.add_argument("--n-repeats", type=int, default=20,
-                        help=".")
+                        help="number of runs to gen data")
     parser.add_argument("--aggregator-type", type=str, default="gcn",
                         help="Aggregator type: mean/gcn/pool/lstm")
     parser.add_argument('--dataset',type=str, default='cora')
