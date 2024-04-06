@@ -284,6 +284,7 @@ if __name__ == '__main__':
     parser.add_argument('--sc', type=float, default=0.0, help='GCN self connection')
     parser.add_argument('--pretrain',type=str, default='none')
     parser.add_argument('--nheads',type=int, default=4)
+    parser.add_argument('--mmd',type=bool, default=False)
     
     args = parser.parse_args()
     
@@ -310,6 +311,9 @@ if __name__ == '__main__':
         args.arch = 2
     else:
         args.arch = 0
+
+    if args.mmd == True:
+        args.arch = 1
     
     #Note in_acc is ignored
     in_acc, out_acc, micro_f1, macro_f1 = [], [], [], []
